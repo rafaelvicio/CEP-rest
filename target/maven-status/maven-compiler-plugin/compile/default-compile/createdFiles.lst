@@ -1,7 +1,1 @@
-br/com/rafaelvicio/siscorp/util/Model.class
-br/com/rafaelvicio/siscorp/dao/CEPDao.class
-br/com/rafaelvicio/siscorp/model/CEP.class
-br/com/rafaelvicio/siscorp/api/rest/CEPRest.class
-br/com/rafaelvicio/siscorp/api/config/RestApplication.class
-br/com/rafaelvicio/siscorp/util/Persistence.class
-br/com/rafaelvicio/siscorp/service/CEPService.class
+br/com/rafaelvicio/TesteConsumo.class
