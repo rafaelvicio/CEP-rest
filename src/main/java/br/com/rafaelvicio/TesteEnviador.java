@@ -8,14 +8,13 @@ import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
-import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.naming.InitialContext;
 
 import org.apache.activemq.Message;
 
-public class TesteConsumo {
+public class TesteEnviador {
 	public static void main(String[] args) throws Exception {
 
 		InitialContext context = new InitialContext();
@@ -27,11 +26,23 @@ public class TesteConsumo {
 
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		Destination fila = (Destination) context.lookup("financeiro");
-		
-		MessageProducer producer = session.createProducer(fila);
-		
-		Message message = (Message) session.createTextMessage("Teste mensagem");
-		producer.send(message);
+		MessageConsumer consumer = session.createConsumer(fila);
+
+		consumer.setMessageListener(new MessageListener(){
+
+			@Override
+			public void onMessage(javax.jms.Message message) {
+				TextMessage textMessage  = (TextMessage)message;
+		        try{
+		            System.out.println(textMessage.getText());
+		        } catch(JMSException e){
+		            e.printStackTrace();
+		        }   
+			}
+
+		});
+
+		new Scanner(System.in).nextLine();
 
 		session.close();
 		connection.close();
